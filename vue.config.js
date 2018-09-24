@@ -29,8 +29,22 @@ module.exports = {
     //     extract: true,
         // 开启 CSS source maps?
         sourceMap: false,
-    //     // css预设器配置项
-    //     loaderOptions: {},
+        // css预设器配置项
+        loaderOptions: {
+            less: {
+                plugins: [ new (require('less-plugin-functions')) ]
+            },
+            postcss: {
+                plugins: [
+                    require('postcss-pxtorem')({
+                        rootValue: 75,
+                        unitPrecision: 6,
+                        propList: ['*'],
+                        minPixelValue: 2
+                    })
+                ]
+            }
+        },
     //     // 启用 CSS modules for all css / pre-processor files.
     //     modules: false
     }

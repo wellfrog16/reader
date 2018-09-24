@@ -1,7 +1,5 @@
 const config = {
-    server: {
-        api: '2'
-    }
+    absPath: ''
 };
 
 export default config;
