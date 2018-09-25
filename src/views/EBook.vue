@@ -10,8 +10,7 @@
 import Epub from 'epubjs';
 import config from '@/config';
 
-const BOOK_URL = `${config.absPath}/public/book/book.epub`;
-global.epub = Epub;
+const BOOK_URL = `${config.absPath}/book/book.epub`;
 
 export default {
     name: 'ebook',
@@ -25,7 +24,6 @@ export default {
                 width: window.innerWidth,
                 height: window.innerHeight
             });
-            console.log(this.rendition);
             this.rendition.display();
         }
     }
