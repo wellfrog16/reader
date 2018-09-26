@@ -2,11 +2,6 @@
     <div class="ebook rel-fullsize">
         <div class="wrapper rel-fullsize">
             <div id="read"></div>
-            <div :class="['abs-fullsize', $style.mask]">
-                <div :class="$style.prev"></div>
-                <div :class="$style.body"></div>
-                <div :class="$style.next"></div>
-            </div>
         </div>
     </div>
 </template>
@@ -36,20 +31,5 @@ export default {
 </script>
 
 <style lang="less" module>
-.mask {
-    display: flex;
-}
-
-.prev {
-    flex: 0 0 150px;
-}
-
-.body {
-    flex: 1;
-}
-
-.next {
-    flex: 0 0 150px;
-}
 </style>
 
