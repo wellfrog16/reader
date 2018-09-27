@@ -8,15 +8,15 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            redirect: '/ebook',
+            redirect: '/reader',
         },
         {
-            path: '/ebook',
-            name: 'ebook',
+            path: '/reader',
+            name: 'reader',
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "eboot" */ '@/views/EBook.vue'),
+            component: () => import(/* webpackChunkName: "reader" */ '@/views/Reader.vue'),
         },
     ],
 });
