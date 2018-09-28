@@ -2,7 +2,8 @@
 
 // 系统
 @import './common/keyframes.less'; // 动画
-@import './common/common.less'; // 动画
+@import './common/common.less'; // 通用
+@import './common/transition.less'; // vue动画
 
 // ------------------------------------初始化全局样式-----------------------------------------
 html, body {
@@ -14,6 +15,7 @@ body {
     font-size: @g-fontSize;
     background-color: @g-backgroundColor;
     color: @g-color;
+    overflow: hidden;
 
     &.lock {
         overflow: hidden;

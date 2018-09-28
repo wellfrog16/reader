@@ -1,6 +1,8 @@
 <template>
     <div :class="[$style.footer, 'abs-fullsize']">
         <span><i class="fas fa-bars fa-lg"></i></span>
+        <span><i class="fas fa-plane fa-lg"></i></span>
+        <span><i class="fas fa-sun fa-lg"></i></span>
         <span><i class="fas fa-font fa-lg"></i></span>
     </div>
 </template>

@@ -10,6 +10,6 @@ module.exports = {
     'string-quotes': 'single',  // 单引号
     'function-url-quotes': 'always',  // 单引号
     'property-no-unknown': [ true, {'ignoreProperties': ['return']} ],
-    'selector-list-comma-newline-after': 'never-multi-line' // 不允许多行
+    'selector-list-comma-newline-after': 'always-multi-line' // 允许多行
   }
 }
