@@ -21,6 +21,7 @@ module.exports = {
     'object-curly-spacing': ['error', 'never'],
     'no-param-reassign': 0,   // 可以修改函数参数
     'no-restricted-globals': 0,
+    'eol-last': 0,
     'vue/html-indent': ['error', 4, {
       'attribute': 1,
       'closeBracket': 0,
@@ -29,6 +30,7 @@ module.exports = {
     }],
     'vue/mustache-interpolation-spacing': [2, 'always'|'never'],
     'vue/v-bind-style': [2, 'shorthand'],
+    // 'script-indent': ["error", 4, {"baseIndent": 4}],
 
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
