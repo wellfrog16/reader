@@ -1,7 +1,7 @@
 <template>
     <div class="ebook rel-fullsize">
         <div class="wrapper rel-fullsize">
-            <div id="read"></div>
+            <div id="read">11</div>
             <controller />
         </div>
     </div>
