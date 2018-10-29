@@ -3,6 +3,8 @@ const mock = require('./mock');
 module.exports = {
     assetsDir: 'src/assets',
 
+    productionSourceMap: false,
+
     devServer: {
         before(app) { mock(app); }
     },

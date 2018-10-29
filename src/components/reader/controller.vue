@@ -41,31 +41,6 @@ export default {
 };
 </script>
 
-<style lang="less">
-    .slide-down-enter, .slide-down-leave-to {
-        transform: translateY(-100%);
-    }
-
-    .slide-up-enter, .slide-up-leave-to {
-        transform: translateY(100%);
-    }
-
-    .slide-down-enter-to,
-    .slide-down-leave,
-    .slide-up-enter-to,
-    .slide-up-leave {
-        transform: translateY(0);
-    }
-
-    .slide-down-enter-active,
-    .slide-down-leave-active,
-    .slide-up-enter-active,
-    .slide-up-leave-active {
-        transition: all 300ms linear;
-    }
-</style>
-
-
 <style lang="less" module>
     .mask {
         display: flex;
