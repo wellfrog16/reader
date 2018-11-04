@@ -9,7 +9,8 @@ module.exports = {
     'max-nesting-depth': 3, // 最大嵌套深度
     'string-quotes': 'single',  // 单引号
     'function-url-quotes': 'always',  // 单引号
-    'property-no-unknown': [ true, {'ignoreProperties': ['return']} ],
+    'property-no-unknown': [ true, {'ignoreProperties': ['return', '//']} ],
+    'no-invalid-double-slash-comments': null, // 允许斜杠注释
     'selector-list-comma-newline-after': 'always-multi-line' // 允许多行
   }
 }

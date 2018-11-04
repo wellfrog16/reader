@@ -1,8 +1,10 @@
 <template>
     <div :class="[$style.footer, 'abs-fullsize']">
-        <div :class="$style.wrapper">
-            <div :class="$style['font-size']" v-show="test"></div>
-        </div>
+        <transition name="slide-up">
+            <div :class="$style.wrapper" v-show="test">
+                <div :class="$style['font-size']">1</div>
+            </div>
+        </transition>
         <div :class="$style.controller">
             <span><i class="fas fa-bars fa-lg"></i></span>
             <span><i class="fas fa-plane fa-lg"></i></span>
@@ -13,16 +15,23 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
     data() {
         return {
             test: false
         };
+    },
+    mounted() {
+        console.log($);
     }
 };
 </script>
 
 <style lang="less" module>
+@import '../../assets/style/config.less';
+
 .footer {
     z-index: 10;
     top: initial;
@@ -38,7 +47,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 75px;
+    height: @g-barHeight;
 
     i {
         margin: 0 20px;
@@ -46,12 +55,12 @@ export default {
 }
 
 .wrapper {
-    height: 0;
+    height: @g-barHeight;
     overflow: hidden;
 }
 
 .font-size {
-    height: 75px;
+    height: @g-barHeight;
     background-color: greenyellow;
 }
 </style>

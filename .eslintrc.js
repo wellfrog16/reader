@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     // 'plugin:vue/strongly-recommended',
-    '@vue/airbnb',
+    '@vue/standard',
   ],
   rules: {
     'comma-spacing': [2, {'before': false, 'after': true}], // 逗号后带空格
@@ -14,13 +14,13 @@ module.exports = {
     'linebreak-style': [2, 'windows'],  // 换行风格
     'quotes': [2, 'single'],  // 引号，单引号
     'no-extra-semi': 2, // 禁止不必要的分号
+    'semi': [2, "always"],
     'space-before-function-paren': [2, 'never'],  //禁止函数圆括号之前有一个空格
     'arrow-parens': [2, 'as-needed'],
     'quote-props': [2, 'consistent'],
     'comma-dangle': ['error', 'only-multiline'],
     'object-curly-spacing': ['error', 'never'],
     'no-param-reassign': 0,   // 可以修改函数参数
-    'no-restricted-globals': 0,
     'eol-last': 0,
     'vue/html-indent': ['error', 4, {
       'attribute': 1,
