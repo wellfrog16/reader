@@ -1,15 +1,13 @@
 <template>
     <div :class="[$style.footer, 'abs-fullsize']">
-        <transition name="slide-up">
-            <div :class="$style.wrapper" v-show="test">
-                <div :class="$style['font-size']">1</div>
-            </div>
-        </transition>
+        <div :class="$style.wrapper">
+            <div :class="[$style['font-size'], 'hide']"></div>
+        </div>
         <div :class="$style.controller">
             <span><i class="fas fa-bars fa-lg"></i></span>
             <span><i class="fas fa-plane fa-lg"></i></span>
             <span><i class="fas fa-sun fa-lg"></i></span>
-            <span @click="test=!test"><i class="fas fa-font fa-lg"></i></span>
+            <span @click="toggle('font-size')"><i class="fas fa-font fa-lg"></i></span>
         </div>
     </div>
 </template>
@@ -20,11 +18,27 @@ import $ from 'jquery';
 export default {
     data() {
         return {
-            test: false
+            test: true
         };
     },
     mounted() {
-        console.log($);
+        console.log(1);
+    },
+    methods: {
+        toggle(name) {
+            const height = $(`.${this.$style['controller']}`).height();
+            const wrapper = $(`.${this.$style.wrapper}`);
+            const target = $(`.${this.$style[name]}`);
+            const isOpen = !target.hasClass('hide');
+
+            if (isOpen) {
+                wrapper.stop().animate({height: 0}, 300, () => wrapper.find('>div').addClass('hide'));
+            } else {
+                wrapper.find('>div').addClass('hide');
+                target.removeClass('hide');
+                wrapper.stop().animate({height}, 300);
+            }
+        }
     }
 };
 </script>
@@ -55,12 +69,11 @@ export default {
 }
 
 .wrapper {
-    height: @g-barHeight;
+    height: 0;
     overflow: hidden;
 }
 
 .font-size {
     height: @g-barHeight;
-    background-color: greenyellow;
 }
 </style>
