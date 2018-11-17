@@ -1,4 +1,6 @@
 const mock = require('./mock');
+const LessPluginFun = require('less-plugin-functions');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     assetsDir: 'src/assets',
@@ -9,32 +11,30 @@ module.exports = {
         before(app) { mock(app); }
     },
 
-    pluginOptions: {
-        lintStyleOnBuild: true,
-        stylelint: {
-            fix: false, // boolean (default: true)
-            // files: ['src/**/*.{vue,htm,html,css,sss,less,scss}']
-        }
-    },
-
     lintOnSave: true,
       // cdn接入
     configureWebpack: {
         externals: {
             jquery: "jQuery"
-        }
+        },
+        plugins: [
+            new StyleLintPlugin({
+                context: 'src',
+                files: ['**/*.less', '**/*.s?(a|c)ss', '**/*.vue']
+            })
+        ]
     },
 
 
     css: {
-    //     // 是否使用css分离插件 ExtractTextPlugin
-    //     extract: true,
+        // 是否使用css分离插件 ExtractTextPlugin
+        extract: false,
         // 开启 CSS source maps?
         sourceMap: false,
         // css预设器配置项
         loaderOptions: {
             less: {
-                plugins: [ new (require('less-plugin-functions')) ]
+                plugins: [ new LessPluginFun() ]
             },
             postcss: {
                 plugins: [
@@ -47,7 +47,7 @@ module.exports = {
                 ]
             }
         },
-    //     // 启用 CSS modules for all css / pre-processor files.
-    //     modules: false
+        // 启用 CSS modules for all css / pre-processor files.
+        modules: false
     }
 }

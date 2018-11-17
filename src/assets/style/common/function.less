@@ -1,28 +1,10 @@
 .function {
-    // .rem1(@x) {
-    //     @baseUnit: 75;
-    //     @unit: get-unit(@x);
-    //     @size: unit(@x);
-    //     @rem: @size / @baseUnit;
-    //     @result: @unit;
-    //     @unit: '@{unit}';
-
-    //     .if(@unit);
-
-    //     .if(@unit) when (@unit = 'px') {
-    //         return: e('@{rem}rem');
-    //     }
-
-    //     .if(@unit) when not(@unit = 'px') {
-    //         return: @x;
-    //     }
-    // }
-
     .rem(@x) {
         @baseUnit: 75;
         @unit: get-unit(@x);
         @size: unit(@x);
         @result: @size / @baseUnit;
+
         return: e('@{result}rem');
     }
 }

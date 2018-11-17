@@ -46,8 +46,7 @@ export default {
         display: flex;
     }
 
-    .prev,
-    .next {
+    .prev, .next {
         flex: 0 0 150px;
     }
 

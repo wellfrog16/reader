@@ -50,4 +50,3 @@ export default {
 
 <style lang="less" module>
 </style>
-
