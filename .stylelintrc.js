@@ -10,7 +10,9 @@ module.exports = {
     'string-quotes': 'single', // 单引号
     'function-url-quotes': 'always', // 单引号
     'at-rule-semicolon-newline-after': null,
+    'declaration-block-semicolon-newline-after': null,
     'property-no-unknown': [ true, {'ignoreProperties': ['return']} ], // 自定义函数用，忽略return
+    'selector-pseudo-class-no-unknown': [ true, {'ignorePseudoClasses': ['global']}],
     'unit-case': null,   // PX px rem用
     'selector-list-comma-newline-after': 'never-multi-line' // 不允许多行
   }

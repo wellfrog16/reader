@@ -1,9 +1,11 @@
 <template>
     <div :class="[$style.footer, 'abs-fullsize']">
         <transition name="opacity">
-            <div :class="[$style.mask, 'abs-fullsize', 'flex-center']" v-show="showMask">
+            <div :class="[$style.container, 'abs-fullsize', 'flex-center']" v-show="showMask">
+                <div :class="[$style.mask, 'abs-fullsize']" @click.stop="closeMask"></div>
                 <div :class="$style.wrapper">
-                    <font-size :class="[$style['font-size'], 'hide']" />
+                    <font-size class="font-size hide" />
+                    <theme class="theme hide" />
                 </div>
             </div>
         </transition>
@@ -11,10 +13,10 @@
             <div :class="[$style.test, 'hide']"></div>
         </div>
         <div :class="$style.controller">
-            <span><i class="fas fa-bars fa-lg"></i></span>
-            <span @click="toggle('test')"><i class="fas fa-plane fa-lg"></i></span>
-            <span><i class="fas fa-sun fa-lg"></i></span>
-            <span @click="toggle('font-size')"><i class="fas fa-font fa-lg"></i></span>
+            <span><i class="fas fa-bars fa-lg fa-fw"></i></span>
+            <span @click="toggle('test')"><i class="fas fa-plane fa-lg fa-fw"></i></span>
+            <span @click="toggle('theme')"><i class="fas fa-sun fa-lg fa-fw"></i></span>
+            <span @click="toggle('font-size')"><i class="fas fa-font fa-lg fa-fw"></i></span>
         </div>
     </div>
 </template>
@@ -23,12 +25,14 @@
 import $ from 'jquery';
 import {mapState, mapMutations} from 'vuex';
 import FontSize from './com/fontsize.vue';
+import Theme from './com/theme.vue';
 
 export default {
-    components: {FontSize},
+    components: {FontSize, Theme},
     data() {
         return {
-            test: true
+            test: true,
+            com: ['font-size']
         };
     },
     mounted() {
@@ -38,18 +42,27 @@ export default {
         ...mapMutations(['toggleMask']),
         toggle(name) {
             // const mask = $(`.${this.$style.mask}`);
-            const target = $(`.${this.$style[name]}`);
+            const target = $(`.${this.$style.wrapper} .${name}`);
+            target.removeClass('hide');
+            this.toggleMask();
 
-            const handle = {
-                'font-size': () => {
-                    this.toggleMask();
-                    // mask.css({opacity: 0}).removeClass('hide').animate({opacity: 1});
-                    target.removeClass('hide');
-                    console.log('font-size');
-                }
-            };
+            // const handle = {
+            //     'font-size': () => {
+            //         this.toggleMask();
+            //         // mask.css({opacity: 0}).removeClass('hide').animate({opacity: 1});
+            //         console.log(target);
+            //         target.removeClass('hide');
+            //         console.log('font-size');
+            //     },
+            //     'theme': () => {
+            //     }
+            // };
 
-            handle[name]();
+            // handle[name]();
+        },
+        closeMask() {
+            $(`.${this.$style.wrapper}>div`).addClass('hide');
+            this.toggleMask();
         }
         // toggle(name) {
         //     const height = $(`.${this.$style['controller']}`).height();
@@ -95,11 +108,16 @@ export default {
     span {
         display: inline-block;
         padding: 15px;
+        cursor: pointer;
     }
 
     i {
         margin: 0 20px;
     }
+}
+
+.container {
+    position: fixed;
 }
 
 .mask {
@@ -110,7 +128,8 @@ export default {
 .wrapper {
     width: 600px;
     height: 800px;
-    background-color: greenyellow;
+    position: relative;
+    z-index: 2;
 }
 
 .toggle {

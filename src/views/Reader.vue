@@ -9,7 +9,7 @@
 
 <script>
 import Epub from 'epubjs';
-import {mapState} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
 import config from '@/config';
 
 import controller from '@/components/reader/controller.vue';
@@ -29,6 +29,7 @@ export default {
         this.showEpub();
     },
     methods: {
+        ...mapMutations(['setEBook']),
         loadEpub() {
             const book = new Epub(BOOK_URL);
             const rendition = book.renderTo('read', {
@@ -36,7 +37,8 @@ export default {
                 height: window.innerHeight
             });
 
-            this.$store.commit('setEBook', rendition);
+            this.setEBook(rendition);
+            // this.$store.commit('setEBook', rendition);
         },
         showEpub() {
             this.ebook.display();

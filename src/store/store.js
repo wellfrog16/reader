@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         ebook: null,
-        showMask: false
+        showMask: false,
+        fontSize: '16px'
     },
     mutations: {
         setEBook(state, ebook) {
@@ -14,6 +15,10 @@ export default new Vuex.Store({
         },
         toggleMask(state) {
             state.showMask = !state.showMask;
+        },
+        setFontSize(state, fontSize) {
+            state.fontSize = fontSize || state.fontSize;
+            localStorage.ebookFontSize = state.fontSize;
         }
     },
     actions: {
