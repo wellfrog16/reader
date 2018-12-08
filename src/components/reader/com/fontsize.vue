@@ -34,11 +34,11 @@ export default {
         },
         setSize(size) {
             this.setFontSize(`${size}px`);
-            this.ebook.themes.fontSize(`${size}px`);
+            // this.ebook.themes.fontSize(`${size}px`);
         }
     },
     computed: {
-        ...mapState(['ebook', 'fontSize'])
+        ...mapState(['fontSize'])
     }
 };
 </script>

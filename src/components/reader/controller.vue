@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 import xheader from '@/components/reader/header.vue';
 import xfooter from '@/components/reader/footer.vue';
 
@@ -29,13 +30,21 @@ export default {
     },
     methods: {
         prev() {
-            this.$store.state.ebook.prev();
+            this.$store.state.rendition.prev();
         },
         next() {
-            this.$store.state.ebook.next();
+            this.$store.state.rendition.next();
         },
         toggleController() {
             this.showController = !this.showController;
+        }
+    },
+    computed: {
+        ...mapState(['rendition', 'fontSize'])
+    },
+    watch: {
+        fontSize(val) {
+            this.rendition.themes.fontSize(val);
         }
     }
 };

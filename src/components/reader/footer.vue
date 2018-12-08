@@ -1,7 +1,7 @@
 <template>
     <div :class="[$style.footer, 'abs-fullsize']">
         <transition name="opacity">
-            <div :class="[$style.container, 'abs-fullsize', 'flex-center']" v-show="showMask">
+            <div :class="[$style.container, 'abs-fullsize', 'flex-center']" v-show="maskVisible">
                 <div :class="[$style.mask, 'abs-fullsize']" @click.stop="closeMask"></div>
                 <div :class="$style.wrapper">
                     <font-size class="font-size hide" />
@@ -80,7 +80,7 @@ export default {
         // }
     },
     computed: {
-        ...mapState(['showMask']),
+        ...mapState(['maskVisible']),
     }
 };
 </script>

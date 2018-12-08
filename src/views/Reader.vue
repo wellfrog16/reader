@@ -29,7 +29,7 @@ export default {
         this.showEpub();
     },
     methods: {
-        ...mapMutations(['setEBook']),
+        ...mapMutations(['setBook', 'setRendition']),
         loadEpub() {
             const book = new Epub(BOOK_URL);
             const rendition = book.renderTo('read', {
@@ -37,18 +37,16 @@ export default {
                 height: window.innerHeight
             });
 
-            this.setEBook(rendition);
-            // this.$store.commit('setEBook', rendition);
+            this.setBook(book);
+            this.setRendition(rendition);
+            // this.$store.commit('setBook', rendition);
         },
         showEpub() {
-            this.ebook.display();
+            this.rendition.display();
         }
     },
     computed: {
-        ...mapState(['ebook'])
+        ...mapState(['rendition'])
     }
 };
 </script>
-
-<style lang="less" module>
-</style>
