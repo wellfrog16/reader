@@ -26,25 +26,26 @@ export default {
             showController: false
         };
     },
-    mounted() {
-    },
     methods: {
         prev() {
-            this.$store.state.rendition.prev();
+            this.rendition.prev();
         },
         next() {
-            this.$store.state.rendition.next();
+            this.rendition.next();
         },
         toggleController() {
             this.showController = !this.showController;
         }
     },
     computed: {
-        ...mapState(['rendition', 'fontSize'])
+        ...mapState(['rendition', 'fontSize', 'theme'])
     },
     watch: {
         fontSize(val) {
             this.rendition.themes.fontSize(val);
+        },
+        theme(val) {
+            this.rendition.themes.select(val);
         }
     }
 };

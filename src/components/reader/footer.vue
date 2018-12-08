@@ -4,8 +4,8 @@
             <div :class="[$style.container, 'abs-fullsize', 'flex-center']" v-show="maskVisible">
                 <div :class="[$style.mask, 'abs-fullsize']" @click.stop="closeMask"></div>
                 <div :class="$style.wrapper">
-                    <font-size class="font-size hide" />
-                    <theme class="theme hide" />
+                    <font-size v-if="checkCom('font-size')" />
+                    <theme v-if="checkCom('theme')" />
                 </div>
             </div>
         </transition>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import {mapState, mapMutations} from 'vuex';
 import FontSize from './com/fontsize.vue';
 import Theme from './com/theme.vue';
@@ -39,11 +38,12 @@ export default {
         console.log(1);
     },
     methods: {
-        ...mapMutations(['toggleMask']),
+        ...mapMutations(['toggleMask', 'comsAdd', 'comsDelete', 'comsClear']),
         toggle(name) {
             // const mask = $(`.${this.$style.mask}`);
-            const target = $(`.${this.$style.wrapper} .${name}`);
-            target.removeClass('hide');
+            // const target = $(`.${this.$style.wrapper} .${name}`);
+            // target.removeClass('hide');
+            this.comsAdd(name);
             this.toggleMask();
 
             // const handle = {
@@ -61,8 +61,11 @@ export default {
             // handle[name]();
         },
         closeMask() {
-            $(`.${this.$style.wrapper}>div`).addClass('hide');
+            this.comsClear();
             this.toggleMask();
+        },
+        checkCom(name) {
+            return this.coms.find(item => item === name);
         }
         // toggle(name) {
         //     const height = $(`.${this.$style['controller']}`).height();
@@ -80,7 +83,7 @@ export default {
         // }
     },
     computed: {
-        ...mapState(['maskVisible']),
+        ...mapState(['maskVisible', 'coms']),
     }
 };
 </script>

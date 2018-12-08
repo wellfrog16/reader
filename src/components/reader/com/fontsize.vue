@@ -6,15 +6,15 @@
                 class="flex-center"
                 :class="{highlight: item === parseInt(fontSize)}"
                 :style="styleFontSize(item)"
-                @click="setSize(item)"
+                @click="setFontSize(`${item}px`)"
             >我想要这么大的字号</li>
-            <li :class="[$style.close, 'flex-center']" @click="close">关 闭</li>
         </ul>
+        <div class="close flex-center" @click="close">关 闭</div>
     </div>
 </template>
 
 <script>
-import $ from 'jquery';
+// import $ from 'jquery';
 import {mapState, mapMutations} from 'vuex';
 
 export default {
@@ -24,17 +24,13 @@ export default {
         };
     },
     methods: {
-        ...mapMutations(['toggleMask', 'setFontSize']),
+        ...mapMutations(['toggleMask', 'setFontSize', 'comsDelete']),
         styleFontSize(size) {
             return `font-size: ${size}PX`;
         },
         close() {
-            $(`.${this.$style.main}`).addClass('hide');
+            this.comsDelete('font-size');
             this.toggleMask();
-        },
-        setSize(size) {
-            this.setFontSize(`${size}px`);
-            // this.ebook.themes.fontSize(`${size}px`);
         }
     },
     computed: {
@@ -46,15 +42,15 @@ export default {
 <style lang="less" module>
 .main {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     ul {
         margin: 0;
         padding: 0;
         display: flex;
         flex-direction: column;
-        height: 100%;
-        // width: 600px;
-        // height: 800px;
+        flex-grow: 1;
         background-color: white;
     }
 
@@ -74,10 +70,5 @@ export default {
             background-color: rgb(255, 250, 208);
         }
     }
-}
-
-.close {
-    font-size: 20PX;
-    background-color: #e5e5e5;
 }
 </style>

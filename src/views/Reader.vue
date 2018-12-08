@@ -26,10 +26,16 @@ export default {
     },
     mounted() {
         this.loadEpub();
+        this.registerTheme();
+        // 设置字体
+        this.setFontSize(localStorage.getItem('bookFontSize') || this.fontSize);
+        // 设置主题
+        this.setTheme(localStorage.getItem('bookTheme') || this.theme);
+        // 显示电子书
         this.showEpub();
     },
     methods: {
-        ...mapMutations(['setBook', 'setRendition']),
+        ...mapMutations(['setBook', 'setRendition', 'setFontSize', 'setTheme']),
         loadEpub() {
             const book = new Epub(BOOK_URL);
             const rendition = book.renderTo('read', {
@@ -43,10 +49,15 @@ export default {
         },
         showEpub() {
             this.rendition.display();
+        },
+        registerTheme() { // 注册主题
+            this.themeList.forEach(item => {
+                this.rendition.themes.register(item.name, item.style);
+            });
         }
     },
     computed: {
-        ...mapState(['rendition'])
+        ...mapState(['rendition', 'fontSize', 'theme', 'themeList'])
     }
 };
 </script>
