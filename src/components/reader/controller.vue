@@ -32,13 +32,19 @@ export default {
         },
         next() {
             this.rendition.next();
+            const currentLocation = this.rendition.currentLocation();
+            // Get the Percentage (or location) from that CFI
+            const currentPage = this.book.locations.percentageFromCfi(currentLocation.start.cfi);
+            console.log(currentPage);
+            // console.log(this.locations.generate());
+            // console.log(this.locations.percentageFromCfi);
         },
         toggleController() {
             this.showController = !this.showController;
         }
     },
     computed: {
-        ...mapState(['rendition', 'fontSize', 'theme'])
+        ...mapState(['book', 'rendition', 'locations', 'fontSize', 'theme', 'progress'])
     },
     watch: {
         fontSize(val) {
@@ -46,6 +52,11 @@ export default {
         },
         theme(val) {
             this.rendition.themes.select(val);
+        },
+        progress(val) {
+            const percent = val / 100;
+            const location = percent >= 0 ? this.locations.cfiFromPercentage(percent) : 0;
+            this.rendition.display(location);
         }
     }
 };

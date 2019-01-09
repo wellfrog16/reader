@@ -10,11 +10,11 @@
             </div>
         </transition>
         <div :class="$style.toggle">
-            <div :class="[$style.test, 'hide']"></div>
+            <progresss v-show="checkCom('progresss')" class="progresss hide" />
         </div>
         <div :class="$style.controller">
             <span><i class="fas fa-bars fa-lg fa-fw"></i></span>
-            <span @click="toggle('test')"><i class="fas fa-plane fa-lg fa-fw"></i></span>
+            <span @click="slide('progresss')"><i class="fas fa-plane fa-lg fa-fw"></i></span>
             <span @click="toggle('theme')"><i class="fas fa-sun fa-lg fa-fw"></i></span>
             <span @click="toggle('font-size')"><i class="fas fa-font fa-lg fa-fw"></i></span>
         </div>
@@ -25,9 +25,11 @@
 import {mapState, mapMutations} from 'vuex';
 import FontSize from './com/fontsize.vue';
 import Theme from './com/theme.vue';
+import Progresss from './com/progresss.vue';
+import $ from 'jquery';
 
 export default {
-    components: {FontSize, Theme},
+    components: {FontSize, Theme, Progresss},
     data() {
         return {
             test: true,
@@ -66,21 +68,28 @@ export default {
         },
         checkCom(name) {
             return this.coms.find(item => item === name);
-        }
-        // toggle(name) {
-        //     const height = $(`.${this.$style['controller']}`).height();
-        //     const wrapper = $(`.${this.$style.toggle}`);
-        //     const target = $(`.${this.$style[name]}`);
-        //     const isOpen = !target.hasClass('hide');
+        },
+        slide(name) {
+            this.comsAdd(name);
 
-        //     if (isOpen) {
-        //         wrapper.stop().animate({height: 0}, 300, () => wrapper.find('>div').addClass('hide'));
-        //     } else {
-        //         wrapper.find('>div').addClass('hide');
-        //         target.removeClass('hide');
-        //         wrapper.stop().animate({height}, 300);
-        //     }
-        // }
+            this.$nextTick(() => {
+                const height = $(`.${this.$style['controller']}`).height() * 2;
+                const toggle = $(`.${this.$style.toggle}`);
+                const target = $(`.${name}`);
+                const isOpen = !target.hasClass('hide');
+
+                if (isOpen) {
+                    toggle.stop().animate({height: 0}, 300, () => {
+                        toggle.find('>div').addClass('hide');
+                        this.comsClear();
+                    });
+                } else {
+                    toggle.find('>div').addClass('hide');
+                    target.removeClass('hide');
+                    toggle.stop().animate({height}, 300);
+                }
+            });
+        }
     },
     computed: {
         ...mapState(['maskVisible', 'coms']),
@@ -138,9 +147,5 @@ export default {
 .toggle {
     height: 0;
     overflow: hidden;
-}
-
-.test {
-    height: @g-barHeight;
 }
 </style>

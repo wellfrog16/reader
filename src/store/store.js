@@ -16,7 +16,7 @@ export default new Vuex.Store({
                 name: 'default',
                 style: {
                     body: {
-                        'color': '#000', 'background-color': '#fff'
+                        'color': '#000', 'background-color': '#fff', 'line-height': '1.75em'
                     }
                 }
             },
@@ -24,7 +24,7 @@ export default new Vuex.Store({
                 name: 'eye',
                 style: {
                     body: {
-                        'color': '#000', 'background-color': '#ceeaba'
+                        'color': '#000', 'background-color': '#ceeaba', 'line-height': '1.75em'
                     }
                 }
             },
@@ -32,7 +32,7 @@ export default new Vuex.Store({
                 name: 'night',
                 style: {
                     body: {
-                        'color': '#fff', 'background-color': '#000'
+                        'color': '#fff', 'background-color': '#000', 'line-height': '1.75em'
                     }
                 }
             },
@@ -40,11 +40,14 @@ export default new Vuex.Store({
                 name: 'gold',
                 style: {
                     body: {
-                        'color': '#000', 'background-color': 'rgb(241,236,226)'
+                        'color': '#000', 'background-color': 'rgb(241,236,226)', 'line-height': '1.75em'
                     }
                 }
             }
-        ]
+        ],
+        progress: 0,
+        isProgressDisabled: true,
+        locations: null,
     },
     mutations: {
         setBook(state, book) {
@@ -63,6 +66,15 @@ export default new Vuex.Store({
         setTheme(state, theme) {
             state.theme = theme || state.theme;
             localStorage.bookTheme = state.theme;
+        },
+        setProgress(state, progress) {
+            state.progress = progress;
+        },
+        setProgressDisabled(state, isDisabled) {
+            state.isProgressDisabled = isDisabled;
+        },
+        setLocations(state, locations) {
+            state.locations = locations;
         },
         comsAdd(state, name) {
             state.coms.push(name);

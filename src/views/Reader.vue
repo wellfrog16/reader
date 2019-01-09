@@ -35,7 +35,7 @@ export default {
         this.showEpub();
     },
     methods: {
-        ...mapMutations(['setBook', 'setRendition', 'setFontSize', 'setTheme']),
+        ...mapMutations(['setBook', 'setRendition', 'setFontSize', 'setTheme', 'setLocations', 'setProgressDisabled']),
         loadEpub() {
             const book = new Epub(BOOK_URL);
             const rendition = book.renderTo('read', {
@@ -46,6 +46,12 @@ export default {
             this.setBook(book);
             this.setRendition(rendition);
             // this.$store.commit('setBook', rendition);
+            book.ready.then(() => {
+                this.setLocations(book.locations);
+                return book.locations.generate();
+            }).then(() => {
+                this.setProgressDisabled(false);
+            });
         },
         showEpub() {
             this.rendition.display();
