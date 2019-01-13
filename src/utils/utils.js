@@ -1,14 +1,65 @@
-import $ from 'jquery'; // eslint-disable-line
+import $ from 'jquery';
+import moment from 'moment';
 
-const config = {
-    debug: true
+// 空判断
+function isEmpty(val) {
+    return val === null || val === '' || val === undefined;
+}
+
+// 带有效期的localStorage
+const localStorageZ = {
+    set(key, val, expires) {
+        const type = $.type(expires);
+        const createAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        const item = {val, type, createAt};
+        const handle = {
+            date() { item.expires = moment(expires).format('YYYY-MM-DD HH:mm:ss'); },
+            number() { item.expires = expires; }
+        };
+
+        handle[type] && handle[type]();
+        localStorage.setItem(key, JSON.stringify(item));
+    },
+    get(key) {
+        const val = localStorage.getItem(key);
+        if (isEmpty(val)) { return ''; }
+
+        const item = JSON.parse(val);
+        const self = this;
+
+        let result = '';
+
+        const handle = {
+            date() {
+                if (new Date() > new Date(item.expires)) {
+                    self.clear(key);
+                } else {
+                    result = item.val;
+                }
+            },
+            number() {
+                const ss = (new Date().getTime() - new Date(item.createAt).getTime()) / 1000;
+                if (ss > +item.expires) {
+                    self.clear(key);
+                } else {
+                    result = item.val;
+                }
+            },
+            undefined() {
+                result = item.val;
+            }
+        };
+
+        handle[item.type] && handle[item.type]();
+        return result;
+    },
+    clear(key) {
+        localStorage.removeItem(key);
+    }
 };
 
-function log(s) { return !config.debug || console.log(s); }
-
-function setRootSize() {
+function setRootSize(maxSize = 75) {
     $(() => {
-        const maxSize = 75;
         let fontSize = window.innerWidth / 10;
         fontSize = fontSize > maxSize ? maxSize : fontSize;
         $('html').css('font-size', fontSize);
@@ -21,6 +72,7 @@ function autoRootSize() {
 }
 
 export default {
-    log,
+    isEmpty,
+    localStorage: localStorageZ,
     autoRootSize
 };

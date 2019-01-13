@@ -19,25 +19,39 @@ export default {
             skin: 'square',
             min: 0,
             max: 100,
-            step: 0.1,
+            step: 0.01,
             from: this.progress,
             disable: this.isProgressDisabled,
             onFinish: target => {
-                this.setProgress(target.from);
+                // 设置进度值
+                let val = target.from;
+                const percent = val / 100;
+                this.setPage(percent);
+
+                // 保存进度值
+                setTimeout(() => {
+                    this.saveProgress();
+                }, 500);
             }
         });
 
+        // 设置实例
         this.target = $(`.${this.$style.progress}`).data('ionRangeSlider');
     },
     methods: {
-        ...mapMutations(['setProgress']),
+        ...mapMutations(['saveProgress', 'setPage']),
     },
     computed: {
-        ...mapState(['progress', 'isProgressDisabled'])
+        ...mapState(['locations', 'rendition', 'progress', 'isProgressDisabled'])
     },
     watch: {
         isProgressDisabled(val) {
             this.target.update({disable: val});
+        },
+        progress(val) {
+            this.target.update({
+                from: val * 100
+            });
         }
     }
 };

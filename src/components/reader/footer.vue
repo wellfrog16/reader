@@ -42,25 +42,12 @@ export default {
     methods: {
         ...mapMutations(['toggleMask', 'comsAdd', 'comsDelete', 'comsClear']),
         toggle(name) {
-            // const mask = $(`.${this.$style.mask}`);
-            // const target = $(`.${this.$style.wrapper} .${name}`);
-            // target.removeClass('hide');
+            // 先关闭进度条
+            this.slide('progresss', true);
+
+            // 再打开点击的组件
             this.comsAdd(name);
             this.toggleMask();
-
-            // const handle = {
-            //     'font-size': () => {
-            //         this.toggleMask();
-            //         // mask.css({opacity: 0}).removeClass('hide').animate({opacity: 1});
-            //         console.log(target);
-            //         target.removeClass('hide');
-            //         console.log('font-size');
-            //     },
-            //     'theme': () => {
-            //     }
-            // };
-
-            // handle[name]();
         },
         closeMask() {
             this.comsClear();
@@ -69,19 +56,19 @@ export default {
         checkCom(name) {
             return this.coms.find(item => item === name);
         },
-        slide(name) {
+        slide(name, open) {
             this.comsAdd(name);
 
             this.$nextTick(() => {
                 const height = $(`.${this.$style['controller']}`).height() * 2;
                 const toggle = $(`.${this.$style.toggle}`);
                 const target = $(`.${name}`);
-                const isOpen = !target.hasClass('hide');
+                const isOpen = open || !target.hasClass('hide');
 
                 if (isOpen) {
                     toggle.stop().animate({height: 0}, 300, () => {
                         toggle.find('>div').addClass('hide');
-                        this.comsClear();
+                        this.comsDelete(name);
                     });
                 } else {
                     toggle.find('>div').addClass('hide');

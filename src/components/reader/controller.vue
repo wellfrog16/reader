@@ -15,36 +15,35 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
 import xheader from '@/components/reader/header.vue';
 import xfooter from '@/components/reader/footer.vue';
+import utils from '@/utils/utils';
 
 export default {
     components: {xheader, xfooter},
     data() {
         return {
-            showController: false
+            showController: false,
+            pageChange: 0
         };
     },
     methods: {
+        ...mapMutations(['saveProgress']),
         prev() {
             this.rendition.prev();
+            this.saveProgress();
         },
         next() {
             this.rendition.next();
-            const currentLocation = this.rendition.currentLocation();
-            // Get the Percentage (or location) from that CFI
-            const currentPage = this.book.locations.percentageFromCfi(currentLocation.start.cfi);
-            console.log(currentPage);
-            // console.log(this.locations.generate());
-            // console.log(this.locations.percentageFromCfi);
+            this.saveProgress();
         },
         toggleController() {
             this.showController = !this.showController;
         }
     },
     computed: {
-        ...mapState(['book', 'rendition', 'locations', 'fontSize', 'theme', 'progress'])
+        ...mapState(['locations', 'rendition', 'fontSize', 'theme', 'progress'])
     },
     watch: {
         fontSize(val) {
@@ -53,10 +52,8 @@ export default {
         theme(val) {
             this.rendition.themes.select(val);
         },
-        progress(val) {
-            const percent = val / 100;
-            const location = percent >= 0 ? this.locations.cfiFromPercentage(percent) : 0;
-            this.rendition.display(location);
+        progress(val) { // 仅保存进度
+            utils.localStorage.set('epub-progress', val);
         }
     }
 };

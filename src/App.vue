@@ -18,4 +18,8 @@ export default {
 <style lang="less">
 @import './assets/style/main.less';
 @import './assets/style/common/function.less';
+
+#app {
+    height: 100%;
+}
 </style>

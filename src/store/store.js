@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import utils from '@/utils/utils';
 
 Vue.use(Vuex);
 
@@ -61,14 +62,25 @@ export default new Vuex.Store({
         },
         setFontSize(state, fontSize) {
             state.fontSize = fontSize || state.fontSize;
-            localStorage.bookFontSize = state.fontSize;
+            utils.localStorage.set('epub-fontSize', state.fontSize);
         },
         setTheme(state, theme) {
             state.theme = theme || state.theme;
-            localStorage.bookTheme = state.theme;
+            utils.localStorage.set('epub-theme', state.theme);
         },
         setProgress(state, progress) {
             state.progress = progress;
+        },
+        saveProgress(state) {
+            const currentLocation = state.rendition.currentLocation();
+            if (currentLocation.start && currentLocation.end) {
+                const currentPage = state.book.locations.percentageFromCfi(currentLocation.start.cfi);
+                this.commit('setProgress', currentPage);
+            }
+        },
+        setPage(state, percent) {
+            const location = percent >= 0 ? state.locations.cfiFromPercentage(percent) : 0;
+            state.rendition.display(location);
         },
         setProgressDisabled(state, isDisabled) {
             state.isProgressDisabled = isDisabled;

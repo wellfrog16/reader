@@ -15,7 +15,8 @@ module.exports = {
       // cdn接入
     configureWebpack: {
         externals: {
-            jquery: "jQuery"
+            jquery: 'jQuery',
+            moment: 'moment'
         },
         plugins: [
             new StyleLintPlugin({
