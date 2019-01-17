@@ -6,6 +6,7 @@
                 <div :class="$style.wrapper">
                     <font-size v-if="checkCom('font-size')" />
                     <theme v-if="checkCom('theme')" />
+                    <navigation v-if="checkCom('navigation')" />
                 </div>
             </div>
         </transition>
@@ -13,7 +14,7 @@
             <progresss v-show="checkCom('progresss')" class="progresss hide" />
         </div>
         <div :class="$style.controller">
-            <span><i class="fas fa-bars fa-lg fa-fw"></i></span>
+            <span @click="toggle('navigation')"><i class="fas fa-bars fa-lg fa-fw"></i></span>
             <span @click="slide('progresss')"><i class="fas fa-plane fa-lg fa-fw"></i></span>
             <span @click="toggle('theme')"><i class="fas fa-sun fa-lg fa-fw"></i></span>
             <span @click="toggle('font-size')"><i class="fas fa-font fa-lg fa-fw"></i></span>
@@ -26,14 +27,14 @@ import {mapState, mapMutations} from 'vuex';
 import FontSize from './com/fontsize.vue';
 import Theme from './com/theme.vue';
 import Progresss from './com/progresss.vue';
+import Navigation from './com/navigation.vue';
 import $ from 'jquery';
 
 export default {
-    components: {FontSize, Theme, Progresss},
+    components: {FontSize, Theme, Progresss, Navigation},
     data() {
         return {
-            test: true,
-            com: ['font-size']
+            test: true
         };
     },
     mounted() {

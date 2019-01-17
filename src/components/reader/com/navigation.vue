@@ -2,41 +2,33 @@
     <div :class="$style.main">
         <ul>
             <li v-for="item in list"
-                :key="item"
-                class="flex-center"
-                :class="{highlight: item === parseInt(fontSize)}"
-                :style="styleFontSize(item)"
-                @click="setFontSize(`${item}px`)"
-            >我想要这么大的字号</li>
+                :key="item.id"
+                @click="nav(item.href)"
+            >{{ item.label }}</li>
         </ul>
         <div class="close flex-center" @click="close">关 闭</div>
     </div>
 </template>
 
 <script>
-// import $ from 'jquery';
-import {mapState, mapMutations} from 'vuex';
+import {mapState} from 'vuex';
 
 export default {
-    data() {
-        return {
-            list: [14, 16, 18, 20, 22, 24]
-        };
-    },
     computed: {
-        ...mapState(['fontSize'])
+        ...mapState(['navigation']),
+        list() {
+            return this.navigation.toc;
+        }
     },
     methods: {
-        ...mapMutations(['toggleMask', 'setFontSize', 'comsDelete']),
-        styleFontSize(size) {
-            return `font-size: ${size}PX`;
+        nav(href) {
+            console.log(href);
         },
         close() {
-            this.comsDelete('font-size');
+            this.comsDelete('navigation');
             this.toggleMask();
         }
-    }
-
+    },
 };
 </script>
 
@@ -53,11 +45,14 @@ export default {
         flex-direction: column;
         flex-grow: 1;
         background-color: white;
+        overflow-y: auto;
     }
 
     li {
         flex-grow: 1;
         cursor: pointer;
+        line-height: 80px;
+        padding: 0 20px;
 
         & + li {
             border-top: 1px solid #ccc;
