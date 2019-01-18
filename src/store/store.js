@@ -8,7 +8,6 @@ export default new Vuex.Store({
     state: {
         book: null,
         rendition: null,
-        navigation: null,
         maskVisible: false,
         coms: [],
         fontSize: '16px',
@@ -57,9 +56,6 @@ export default new Vuex.Store({
         },
         setRendition(state, rendition) {
             state.rendition = rendition;
-        },
-        setNavigation(state, navigation) {
-            state.navigation = navigation;
         },
         toggleMask(state) {
             state.maskVisible = !state.maskVisible;

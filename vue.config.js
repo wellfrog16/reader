@@ -16,7 +16,8 @@ module.exports = {
     configureWebpack: {
         externals: {
             jquery: 'jQuery',
-            moment: 'moment'
+            moment: 'moment',
+            iscroll: 'IScroll'
         },
         plugins: [
             new StyleLintPlugin({

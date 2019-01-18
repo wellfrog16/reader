@@ -1,7 +1,7 @@
 <template>
     <div class="ebook rel-fullsize">
         <div class="wrapper rel-fullsize">
-            <div id="reader"></div>
+            <div id="read"></div>
             <controller />
         </div>
         <loading :visible="loadingVisible" />
@@ -39,10 +39,10 @@ export default {
         this.showEpub();
     },
     methods: {
-        ...mapMutations(['setBook', 'setRendition', 'setNavigation', 'setFontSize', 'setTheme', 'setProgress', 'setLocations', 'setPage', 'setProgressDisabled']),
+        ...mapMutations(['setBook', 'setRendition', 'setFontSize', 'setTheme', 'setProgress', 'setLocations', 'setPage', 'setProgressDisabled']),
         loadEpub() {
             const book = new Epub(BOOK_URL);
-            const rendition = book.renderTo('reader', {
+            const rendition = book.renderTo('read', {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 method: 'default'
@@ -53,7 +53,6 @@ export default {
             // this.$store.commit('setBook', rendition);
             book.ready.then(() => {
                 this.setLocations(book.locations);
-                this.setNavigation(book.navigation);
                 return book.locations.generate();
             }).then(() => {
                 // 加载进度
@@ -80,33 +79,3 @@ export default {
     }
 };
 </script>
-
-<style lang="less">
-#reader {
-    height: 100vh;
-    width: 100vw;
-}
-
-.epub-container {
-    word-spacing: 0;
-    line-height: 0;
-    vertical-align: top;
-    position: relative;
-    overflow: hidden;
-    direction: ltr;
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-.epub-view {
-    overflow: hidden;
-    position: relative;
-    display: block;
-    flex: 0 0 auto;
-    visibility: visible;
-}
-
-.ebook {
-    background-color: green;
-}
-</style>

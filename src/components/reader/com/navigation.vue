@@ -1,23 +1,29 @@
 <template>
     <div :class="$style.main">
-        <ul>
-            <li v-for="item in list"
-                :key="item.id"
-                @click="nav(item.href)"
-            >{{ item.label }}</li>
-        </ul>
-        <div class="close flex-center" @click="close">关 闭</div>
+        <div :class="$style.wrapper">
+            <ul>
+                <li v-for="item in list"
+                    :key="item.id"
+                    @click="nav(item.href)"
+                >{{ item.label }}</li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
 import {mapState} from 'vuex';
+import IScroll from 'iscroll';
 
 export default {
+    mounted() {
+        // eslint-disable-next-line
+        new IScroll(`.${this.$style.wrapper}`);
+    },
     computed: {
-        ...mapState(['navigation']),
+        ...mapState(['book']),
         list() {
-            return this.navigation.toc;
+            return this.book.navigation.toc;
         }
     },
     methods: {
@@ -35,8 +41,6 @@ export default {
 <style lang="less" module>
 .main {
     height: 100%;
-    display: flex;
-    flex-direction: column;
 
     ul {
         margin: 0;
@@ -66,5 +70,11 @@ export default {
             background-color: rgb(255, 250, 208);
         }
     }
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 </style>
