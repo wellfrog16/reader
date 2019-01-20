@@ -17,7 +17,7 @@ import utils from '@/utils/utils';
 import Controller from '@/components/reader/controller.vue';
 import Loading from '@/components/reader/loading.vue';
 
-const BOOK_URL = `${config.absPath}/book/book.epub`;
+const BOOK_URL = `${config.absPath}/book/book2.epub`;
 
 export default {
     name: 'reader',
