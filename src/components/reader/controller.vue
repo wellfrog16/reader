@@ -43,7 +43,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['locations', 'rendition', 'fontSize', 'theme', 'progress'])
+        ...mapState(['locations', 'rendition', 'fontSize', 'theme', 'progress', 'navigation'])
     },
     watch: {
         fontSize(val) {
@@ -54,6 +54,11 @@ export default {
         },
         progress(val) { // 仅保存进度
             utils.localStorage.set('epub-progress', val);
+        },
+        navigation(val) {
+            this.rendition.display(val).then(() => {
+                this.saveProgress();
+            });
         }
     }
 };

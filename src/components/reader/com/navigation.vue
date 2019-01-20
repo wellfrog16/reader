@@ -4,7 +4,7 @@
             <ul>
                 <li v-for="item in list"
                     :key="item.id"
-                    @click="nav(item.href)"
+                    v-tap="() => {setNavigation(item.href);}"
                 >{{ item.label }}</li>
             </ul>
         </div>
@@ -12,13 +12,16 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
 import IScroll from 'iscroll';
 
 export default {
     mounted() {
         // eslint-disable-next-line
-        new IScroll(`.${this.$style.wrapper}`);
+        new IScroll(`.${this.$style.wrapper}`, {
+            scrollbars: true,
+            mouseWheel: true
+        });
     },
     computed: {
         ...mapState(['book']),
@@ -27,13 +30,7 @@ export default {
         }
     },
     methods: {
-        nav(href) {
-            console.log(href);
-        },
-        close() {
-            this.comsDelete('navigation');
-            this.toggleMask();
-        }
+        ...mapMutations(['setNavigation'])
     },
 };
 </script>
@@ -74,7 +71,6 @@ export default {
 
 .wrapper {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
 }
 </style>

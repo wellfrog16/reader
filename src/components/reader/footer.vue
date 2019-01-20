@@ -130,6 +130,8 @@ export default {
     height: 800px;
     position: relative;
     z-index: 2;
+    background-color: #fff;
+    box-shadow: 0 0 10PX #666;
 }
 
 .toggle {

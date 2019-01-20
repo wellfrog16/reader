@@ -9,7 +9,6 @@
                 @click="setFontSize(`${item}px`)"
             >我想要这么大的字号</li>
         </ul>
-        <div class="close flex-center" @click="close">关 闭</div>
     </div>
 </template>
 
@@ -27,13 +26,9 @@ export default {
         ...mapState(['fontSize'])
     },
     methods: {
-        ...mapMutations(['toggleMask', 'setFontSize', 'comsDelete']),
+        ...mapMutations(['toggleMask', 'setFontSize']),
         styleFontSize(size) {
             return `font-size: ${size}PX`;
-        },
-        close() {
-            this.comsDelete('font-size');
-            this.toggleMask();
         }
     }
 
@@ -43,15 +38,13 @@ export default {
 <style lang="less" module>
 .main {
     height: 100%;
-    display: flex;
-    flex-direction: column;
 
     ul {
         margin: 0;
         padding: 0;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
         background-color: white;
     }
 

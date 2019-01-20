@@ -17,7 +17,8 @@ module.exports = {
         externals: {
             jquery: 'jQuery',
             moment: 'moment',
-            iscroll: 'IScroll'
+            iscroll: 'IScroll',
+            hammer: 'Hammer'
         },
         plugins: [
             new StyleLintPlugin({

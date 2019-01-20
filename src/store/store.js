@@ -49,6 +49,7 @@ export default new Vuex.Store({
         progress: 0,
         isProgressDisabled: true,
         locations: null,
+        navigation: null
     },
     mutations: {
         setBook(state, book) {
@@ -88,10 +89,13 @@ export default new Vuex.Store({
         setLocations(state, locations) {
             state.locations = locations;
         },
+        setNavigation(state, navigation) {
+            state.navigation = navigation;
+        },
         comsAdd(state, name) {
             state.coms.push(name);
         },
-        comsDelete(state, name) {
+        comsDelete(state, name) { // 弃用
             state.coms.splice(state.coms.indexOf(name), 1);
         },
         comsClear(state) {
