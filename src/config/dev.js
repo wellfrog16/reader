@@ -1,5 +1,5 @@
 const config = {
-    absPath: ''
+    absPath: '.'
 };
 
 export default config;

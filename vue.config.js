@@ -4,6 +4,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     assetsDir: 'src/assets',
+    baseUrl: 'reader',
 
     productionSourceMap: false,
 
